@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item Recommendations System</title>
+    <style>
+        body {
+            background-color: #e0f2f1;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #00897b;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #009688;
+        }
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            padding: 5px 15px;
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #009688;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Item Recommendations System</h1>
+    <form action="/recommendations" method="GET">
+        <label for="item_id">Enter Item ID (ASIN):</label>
+        <input type="text" id="item_id" name="asin" required>
+        <input type="submit" value="Get Recommendations">
+    </form>
+    {% if items %}
+        <h2>Similar Items for {{ item_id }}</h2>
+        <table>
+            <tr>
+                <th>ASIN</th>
+                <th>Overall</th>
+                <th>Review</th>
+            </tr>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item['asin'] }}</td>
+                    <td>{{ item['overall'] }}</td>
+                    <td>{{ item['reviewText'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
